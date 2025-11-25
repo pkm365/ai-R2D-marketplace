@@ -1,0 +1,54 @@
+{
+  "name": "flowchart-architect",
+  "version": "1.0.0",
+  "description": "A comprehensive system for creating, managing, and optimizing business process flowcharts using specialized agents and skills",
+  "type": "plugin",
+  "author": "PKM365",
+  "license": "MIT",
+  "main": "README.md",
+  "agents": {
+    "asset-librarian": {
+      "file": "agents/asset-librarian.md",
+      "description": "Manages flowchart templates and components library"
+    },
+    "process-analyst": {
+      "file": "agents/process-analyst.md",
+      "description": "Analyzes requirements and designs optimal flowchart solutions"
+    },
+    "xml-auditor": {
+      "file": "agents/xml-auditor.md",
+      "description": "Validates flowchart XML structures and compliance"
+    }
+  },
+  "skills": {
+    "solicit-requirements": {
+      "file": "skills/solicit-requirements/SOLICIT-REQUIREMENTS.md",
+      "description": "Gathers and clarifies stakeholder requirements"
+    },
+    "analyze-gap": {
+      "file": "skills/analyze-gap/ANALYZE-GAP.md",
+      "description": "Identifies gaps and improvement opportunities"
+    },
+    "search-standard-assets": {
+      "file": "skills/search-standard-assets/SEARCH-STANDARD-ASSETS.md",
+      "description": "Locates appropriate templates and components"
+    },
+    "generate-drawio": {
+      "file": "skills/generate-drawio/GENERATE-DRAWIO.md",
+      "description": "Creates Draw.io-compatible flowchart XML"
+    },
+    "orchestrate-process": {
+      "file": "skills/orchestrate-process/ORCHESTRATE-PROCESS.md",
+      "description": "Coordinates end-to-end workflow"
+    }
+  },
+  "keywords": ["flowchart", "business-process", "diagram", "process-mapping", "bpmn", "drawio"],
+  "category": "business-process-management",
+  "dependencies": {
+    "claude-code": ">=1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pkm365/ai-R2D-marketplace"
+  }
+}
