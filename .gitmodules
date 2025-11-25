@@ -1,0 +1,3 @@
+[submodule "flowchart-architect"]
+	path = flowchart-architect
+	url = https://github.com/pkm365/flowchart-architect.git
