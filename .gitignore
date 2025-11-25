@@ -13,6 +13,7 @@ env/
 
 # MacOS
 .DS_Store
+Thumbs.db
 
 # Uv
 uv.lock
@@ -32,3 +33,8 @@ logs/
 temp/
 tmp/
 *.tmp
+
+# Ignore dynamic outputs (Artifacts)
+output/*
+assets/*
+!output/.gitkeep
