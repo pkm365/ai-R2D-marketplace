@@ -1,0 +1,13 @@
+{
+"name": "ai-R2D",
+"owner": {
+"name": "kejia"
+},
+"plugins": [
+{
+  "name": "flowchart-architect",
+  "source": "./flowchart-architect",
+  "description": "A plugin to create and visualize flowcharts based on user input"
+}
+]
+}
