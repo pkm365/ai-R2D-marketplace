@@ -36,5 +36,4 @@ tmp/
 
 # Ignore dynamic outputs (Artifacts)
 output/*
-assets/*
 !output/.gitkeep

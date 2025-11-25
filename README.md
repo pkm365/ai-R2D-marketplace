@@ -11,7 +11,7 @@ To use the plugins in this marketplace with Claude Code, you must first install 
 Run the command to add the ai-R2D-marketplace to Claude Code.
 
 ```bash
-/plugin marketplace add [https://github.com/pkm365/ai-R2D-marketplace.git](https://github.com/pkm365/ai-R2D-marketplace.git)
+/plugin marketplace add https://github.com/pkm365/ai-R2D-marketplace.git
 ```
 
 You can then browse available plugins interactively by running /plugin.
@@ -51,8 +51,10 @@ plugin-name/
 │   └── plugin.json          # Plugin metadata
 ├── README.md                 # Plugin documentation
 ├── skills/                   # Claude Code skills (Orchestration, Generation, Analysis)
+│   └── skill-name/
+│       ├── SKILL.md          # Skill definition
+│       └── references/       # Skill-specific knowledge (templates, guidelines)
 ├── agents/                   # Agent definitions (Analyst, Auditor, Librarian)
-├── references/               # Static knowledge (Brand Guidelines, Templates)
 └── assets/                   # Standard process library (optional)
 ```
 
