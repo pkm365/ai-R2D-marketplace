@@ -104,6 +104,13 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    ```
 
 3. **MANDATORY** Present requirements summary to user for confirmation before proceeding.
+   - **STOP HERE**: Ask "Is this requirements summary accurate? Shall we proceed?"
+   - **Wait for user response**.
+
+4. **Update Plan**:
+   - Update `1-输入/[P-project_name]/[process_name]/Plan.md`
+   - Mark **Step 2: Inception** as [x]
+   - Fill in the **Requirements Summary** section.
 
 ### Step 3: Retrieval
 
@@ -147,6 +154,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - **Wait for user response**.
    - Update `asset_search_report.md` with the selected asset (or "None").
 
+5. **Update Plan**:
+   - Update `1-输入/[P-project_name]/[process_name]/Plan.md`
+   - Mark **Step 3: Retrieval** as [x]
+   - Fill in the **Asset Selection** section with the chosen template and rationale.
+
 ### Step 4A: Gap Analysis - Only if assets found
 
 **Objective**: Compare requirements against standard templates and identify deviations.
@@ -169,6 +181,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    ```
 
 3. **Validation**: Present gap analysis to user for confirmation before logic extraction.
+
+4. **Update Plan**:
+   - Update `1-输入/[P-project_name]/[process_name]/Plan.md`
+   - Mark **Step 4A: Gap Analysis** as [x]
+   - Fill in the **Gap Analysis & Logic Strategy** section.
 
 ### Step 4B: Logic Definition
 
@@ -221,6 +238,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - Invoke `analyze-gap` skill with `mode=LOGIC_UPDATE` to apply changes.
    - Repeat Step 4.5 until confirmed.
 
+5. **Update Plan**:
+   - Update `1-输入/[P-project_name]/[process_name]/Plan.md`
+   - Mark **Step 4B: Logic Definition** and **Step 4.5: Logic Checkpoint** as [x]
+   - Fill in the **Logic Structure Preview** section.
+
 ### Step 5: Generation
 
 **Objective**: Generate professional draw.io XML from validated logic structure.
@@ -240,6 +262,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - Consistent color scheme
    - Valid XML structure
    - All connections properly routed
+
+4. **Update Plan**:
+   - Update `1-输入/[P-project_name]/[process_name]/Plan.md`
+   - Mark **Step 5: Generation** as [x]
+   - Fill in the **Final Diagram** section with the file link.
 
 ### Step 6: QA
 
@@ -262,6 +289,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - Correct identified issues
    - Regenerate `1-输入/[P-project_name]/[process_name]/diagram.drawio`
    - Re-run audit until PASS
+
+5. **Update Plan**:
+   - Update `1-输入/[P-project_name]/[process_name]/Plan.md`
+   - Mark **Step 6: QA** as [x]
+   - Fill in the **Audit Status** (PASS/FAIL).
 
 ### Step 7: Delivery
 

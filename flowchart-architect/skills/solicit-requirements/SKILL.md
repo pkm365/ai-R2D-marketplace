@@ -51,6 +51,7 @@ This skill is responsible for the "Inception" step. It transforms vague user req
    ```
 
 ### Step 3: Confirmation
-
+   
 1. **Present** the summary to the user.
-2. **Ask**: "Does this accurately reflect your process? Are there any missing steps or actors?"
+2. **STOP HERE**: Ask: "Does this accurately reflect your process? Are there any missing steps or actors?"
+3. **Wait for user response**.
