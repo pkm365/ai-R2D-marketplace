@@ -26,7 +26,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 ### Step 1: Create Plan
 
-1. **MANDATORY**: Create a new plan file at: `output/[project_name]/Plan.md`
+1. **MANDATORY**: Create a new plan file at: `1-输入/[P-project_name]/[process_name]/Plan.md`
    - If a plan file already exists, read it to understand what has been done so far and continue from there.
    - You will update this document as you progress through the planning steps.
 
@@ -80,7 +80,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - Ask clarifying questions about stakeholders, data flows, and business rules
    - Document all requirements systematically
 
-2. Create requirements file at: `output/[project_name]/requirements.md` using the following template:
+2. Create requirements file at: `1-输入/[P-project_name]/[process_name]/requirements.md` using the following template:
 
    ```markdown
    # [Project Name] - Process Requirements
@@ -118,7 +118,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - **Match Found**: Retrieve standard process template  ->  Proceed to Gap Analysis
    - **No Match**: Continue to Logic Definition with fresh extraction
 
-3. Document retrieval results in: `output/[project_name]/asset_search_report.md` using the following template:
+3. Document retrieval results in: `1-输入/[P-project_name]/[process_name]/asset_search_report.md` using the following template:
 
    ```markdown
    # Asset Search Report - [Project Name]
@@ -141,17 +141,23 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - **Major Gaps**: [Brief list of obvious missing features]
    ```
 
+4. **User Selection Checkpoint (STOP HERE)**:
+   - Present the search results to the user.
+   - Ask: "I found these templates. Which one would you like to use? Or should we start from scratch?"
+   - **Wait for user response**.
+   - Update `asset_search_report.md` with the selected asset (or "None").
+
 ### Step 4A: Gap Analysis - Only if assets found
 
 **Objective**: Compare requirements against standard templates and identify deviations.
 
-1. **MANDATORY**: Invoke `analyze-gap` skill to:
+1. **MANDATORY**: Invoke `analyze-gap` skill with `mode=GAP_ANALYSIS` to:
    - Compare business requirements with standard template
    - Identify logical deviations and custom requirements
    - Document gap analysis findings
    - Determine if deviations are justified
 
-2. Create gap analysis file at: `output/[project_name]/gap_analysis.md` using the following template:
+2. Create gap analysis file at: `1-输入/[P-project_name]/[process_name]/gap_analysis.md` using the following template:
 
    ```markdown
    # Gap Analysis - [Project Name]
@@ -168,11 +174,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 **Objective**: Extract and structure the complete business logic for the diagram.
 
-1. **MANDATORY**: Invoke `analyze-gap` skill to extract logic:
+1. **MANDATORY**: Invoke `analyze-gap` skill with `mode=LOGIC_SYNTHESIS` to extract logic:
    - **If assets found**: Merge standard template with gap analysis
    - **If no assets**: Perform fresh logic extraction from requirements
 
-2. Create logic structure file at: `output/[project_name]/logic_structure.json`
+2. Create logic structure file at: `1-输入/[P-project_name]/[process_name]/logic_structure.json`
 
 3. **Logic Structure Format**:
    ```json
@@ -201,29 +207,32 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 **Objective**: Present extracted logic to user for validation before generation.
 
-1. Read `output/[project_name]/logic_structure.json`
+1. Read `1-输入/[P-project_name]/[process_name]/logic_structure.json`
 2. Present logic summary to user using the **Process Flow Matrix** format (same as Step 2):
    - **CRITICAL**: You MUST use the table format with columns: Seq, I/O Document, System/Manual, Responsible Dept, Step Description, Next Step/Condition.
    - This ensures the user verifies the *exact* sequence and logic that will be generated.
 
-3. **User Confirmation Required**:
+3. **User Confirmation Required (STOP HERE)**:
    - "I will draw the following steps: [summary]..."
    - "Is this logic correct? Any modifications needed?"
+   - **CRITICAL**: Do NOT proceed to Step 5 until the user explicitly replies "Yes" or "Confirmed".
 
-4. **If modifications requested**: Update `logic_structure.json` accordingly
+4. **If modifications requested**:
+   - Invoke `analyze-gap` skill with `mode=LOGIC_UPDATE` to apply changes.
+   - Repeat Step 4.5 until confirmed.
 
 ### Step 5: Generation
 
 **Objective**: Generate professional draw.io XML from validated logic structure.
 
 1. **MANDATORY**: Invoke `generate-drawio` skill:
-   - Read `output/[project_name]/logic_structure.json`
+   - Read `1-输入/[P-project_name]/[process_name]/logic_structure.json`
    - Read references/components.md for component templates
    - Read references/visualization-standards.md for styling rules
    - Calculate coordinates and positioning
    - Generate complete mxGraphModel XML
 
-2. Create diagram file at: `output/[project_name]/diagram.drawio`
+2. Create diagram file at: `1-输入/[P-project_name]/[process_name]/diagram.drawio`
 
 3. **Generation Standards**:
    - All components follow brand guidelines
@@ -236,13 +245,13 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 **Objective**: Verify generated diagram meets quality and compliance standards.
 
-1. **MANDATORY**: Invoke `xml-auditor` agent to audit `output/[project_name]/diagram.drawio`:
+1. **MANDATORY**: Invoke `xml-auditor` agent to audit `1-输入/[P-project_name]/[process_name]/diagram.drawio`:
    - **XML Syntax Check**: Valid structure, proper IDs, parent references
    - **Brand Compliance**: Colors, fonts, layout follow standards
    - **Logic Validation**: All steps from logic_structure.json are represented
    - **Visual Quality**: No overlapping elements, proper spacing
 
-2. Create audit report at: `output/[project_name]/audit_report.md`
+2. Create audit report at: `1-输入/[P-project_name]/[process_name]/audit_report.md`
 
 3. **Audit Results**:
    - **PASS**: Proceed to delivery
@@ -251,14 +260,14 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 4. **If audit fails**:
    - Read audit findings
    - Correct identified issues
-   - Regenerate `output/[project_name]/diagram.drawio`
+   - Regenerate `1-输入/[P-project_name]/[process_name]/diagram.drawio`
    - Re-run audit until PASS
 
 ### Step 7: Delivery
 
 **Objective**: Present final professional diagram to user.
 
-1. Present `output/[project_name]/diagram.drawio` for user review
+1. Present `1-输入/[P-project_name]/[process_name]/diagram.drawio` for user review
 2. Provide summary of the workflow executed
 3. Explain process requirements were addressed
 4. Document all generated artifacts
@@ -270,8 +279,8 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 ### Logic Changes
 
 1. User requests changes to process steps, decision points, or data flow
-2. Update `output/[project_name]/logic_structure.json`
-3. Regenerate `output/[project_name]/diagram.drawio` from Step 5
+2. Update `1-输入/[P-project_name]/[process_name]/logic_structure.json`
+3. Regenerate `1-输入/[P-project_name]/[process_name]/diagram.drawio` from Step 5
 4. Re-run QA audit
 5. Deliver updated diagram (v2, v3, etc.)
 
@@ -279,7 +288,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 1. User requests changes to colors, layout, or visual presentation
 2. Modify generation parameters in Step 5
-3. Update `output/[project_name]/diagram.drawio`
+3. Update `1-输入/[P-project_name]/[process_name]/diagram.drawio`
 4. Re-run QA audit for syntax validation
 5. Deliver updated diagram
 
@@ -297,7 +306,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 ### search-standard-assets
 - **Responsibility**: Template retrieval, asset management
-- **Outputs**: asset_search_report.md, standard_process_templates/
+- **Outputs**: asset_search_report.md, 0-辅助/Assets/
 
 ### xml-auditor (Agent)
 - **Responsibility**: Quality assurance, compliance checking
@@ -361,8 +370,8 @@ Execute workflow:
 1. **Step 1**: Create Plan.md  ->  Initialize process tracking
 2. **Step 2**: solicit-requirements  ->  Document order validation, payment processing, inventory checks, shipping
 3. **Step 3**: search-standard-assets  ->  Find existing "Order Processing Template"
-4. **Step 4A**: analyze-gap  ->  Identify custom return policy logic
-5. **Step 4B**: analyze-gap  ->  Merge template with custom logic in logic_structure.json
+4. **Step 4A**: analyze-gap (GAP_ANALYSIS)  ->  Identify custom return policy logic
+5. **Step 4B**: analyze-gap (LOGIC_SYNTHESIS)  ->  Merge template with custom logic in logic_structure.json
 6. **Step 4.5**: Present "I will draw: Order Input  ->  Validation  ->  Payment  ->  Inventory  ->  Shipping  ->  Output"
 7. **Step 5**: generate-drawio  ->  Create professional swimlane diagram
 8. **Step 6**: xml-auditor agent  ->  Validate syntax and brand compliance

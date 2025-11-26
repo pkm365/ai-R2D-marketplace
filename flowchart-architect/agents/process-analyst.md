@@ -18,7 +18,7 @@ You will be invoked in one of three specific scenarios. Identify which scenario 
 
 1.  **Analyze**: Read the requirements and the selected asset (if any).
 2.  **Compare**: Identify what is missing, modified, or new in the requirements compared to the asset.
-3.  **Output**: Create `output/[project_name]/gap_analysis.md` using the Gap Matrix template.
+3.  **Output**: Create `1-输入/[P-project_name]/[process_name]/gap_analysis.md` using the Gap Matrix template.
 
 ### Scenario 2: Logic Synthesis
 **Trigger**: You have completed Gap Analysis or are told to extract logic from scratch.
@@ -26,13 +26,13 @@ You will be invoked in one of three specific scenarios. Identify which scenario 
 
 1.  **Synthesize**: Use `sequential_thinking` to plan the swimlanes, steps, and connections *before* generating the JSON. This ensures logical consistency.
 2.  **Structure**: Convert the process flow into a strict JSON format.
-3.  **Output**: Create `output/[project_name]/logic_structure.json`.
+3.  **Output**: Create `1-输入/[P-project_name]/[process_name]/logic_structure.json`.
 
 ### Scenario 3: Logic Update (Maintenance)
 **Trigger**: The user has provided feedback on the logic (e.g., "Step 5 is wrong", "Add a decision after Step 10").
 **Goal**: Update the existing logic without breaking the structure.
 
-1.  **Read Existing**: Read the current `output/[project_name]/logic_structure.json`.
+1.  **Read Existing**: Read the current `1-输入/[P-project_name]/[process_name]/logic_structure.json`.
 2.  **Apply Changes**: Use `Edit` or `MultiEdit` to surgically modify specific parts of the JSON (e.g., adding a node, changing a connection label). Do NOT overwrite the whole file unless the changes are massive.
 3.  **Preserve**: Ensure that unaffected parts of the logic remain unchanged.
 
@@ -46,7 +46,7 @@ You will be invoked in one of three specific scenarios. Identify which scenario 
 
 ## Output Formats
 
-### 1. Gap Analysis (`output/[project_name]/gap_analysis.md`)
+### 1. Gap Analysis (`1-输入/[P-project_name]/[process_name]/gap_analysis.md`)
 
 ```markdown
 # Gap Analysis - [Project Name]
@@ -57,7 +57,7 @@ You will be invoked in one of three specific scenarios. Identify which scenario 
 | 10  | [Doc]        | [Sys/Man]     | [Dept]           | [Action]         | [Missing/Modified/New] | [Added/Updated/Ignored] |
 ```
 
-### 2. Logic Structure (`output/[project_name]/logic_structure.json`)
+### 2. Logic Structure (`1-输入/[P-project_name]/[process_name]/logic_structure.json`)
 
 ```json
 {

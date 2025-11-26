@@ -11,7 +11,7 @@ This skill is responsible for the "Inception" step. It transforms vague user req
 
 ## Inputs
 
-- `output/[project_name]/Plan.md` (MANDATORY): To understand the current context.
+- `1-输入/[P-project_name]/[process_name]/Plan.md` (MANDATORY): To understand the current context.
 - `flowchart-architect/skills/solicit-requirements/references/requirements-checklist.md` (OPTIONAL): A checklist of questions to ask.
 
 ## Workflow
@@ -29,7 +29,7 @@ This skill is responsible for the "Inception" step. It transforms vague user req
 ### Step 2: Structured Documentation
 
 1. **Synthesize** the user's responses into the **Process Flow Matrix** format.
-2. **Create** `output/[project_name]/requirements.md` using the standard template:
+2. **Create** `1-输入/[P-project_name]/[process_name]/requirements.md` using the standard template:
 
    ```markdown
    # [Project Name] - Process Requirements

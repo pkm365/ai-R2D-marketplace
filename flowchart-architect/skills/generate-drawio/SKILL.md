@@ -11,7 +11,7 @@ This skill is the "Builder". It takes the abstract logic structure defined by th
 
 ## Inputs
 
-- `output/[project_name]/logic_structure.json` (MANDATORY): The source logic to visualize.
+- `1-输入/[P-project_name]/[process_name]/logic_structure.json` (MANDATORY): The source logic to visualize.
 - `skills/generate-drawio/references/brand-guidelines.md` (MANDATORY): Defines colors, fonts, and logo usage.
 - `skills/generate-drawio/references/visualization-standards.md` (MANDATORY): Defines swimlane layout, spacing, and shape styles.
 - `skills/generate-drawio/references/drawio-template.xml` (OPTIONAL): A base XML template to start from.
@@ -20,7 +20,7 @@ This skill is the "Builder". It takes the abstract logic structure defined by th
 
 ### Step 1: Load Resources
 
-1. **Read** the Logic Structure: `output/[project_name]/logic_structure.json`.
+1. **Read** the Logic Structure: `1-输入/[P-project_name]/[process_name]/logic_structure.json`.
 2. **Read** the Standards:
    - `skills/generate-drawio/references/brand-guidelines.md`
    - `skills/generate-drawio/references/visualization-standards.md`
@@ -51,9 +51,9 @@ This skill is the "Builder". It takes the abstract logic structure defined by th
 
 ### Step 4: Write Output
 
-1. **Create** `output/[project_name]/diagram.drawio`.
+1. **Create** `1-输入/[P-project_name]/[process_name]/diagram.drawio`.
 2. **Verify**: Ensure the file is valid XML and can be opened in Draw.io.
 
 ## Output
 
-- `output/[project_name]/diagram.drawio`: The final, editable flowchart file.
+- `1-输入/[P-project_name]/[process_name]/diagram.drawio`: The final, editable flowchart file.

@@ -11,13 +11,13 @@ This skill handles the "Retrieval" step. It analyzes the structured requirements
 
 ## Inputs
 
-- `output/[project_name]/requirements.md` (MANDATORY): The source of search keywords.
+- `1-输入/[P-project_name]/[process_name]/requirements.md` (MANDATORY): The source of search keywords.
 
 ## Workflow
 
 ### Step 1: Keyword Extraction
 
-1. **Read** `output/[project_name]/requirements.md`.
+1. **Read** `1-输入/[P-project_name]/[process_name]/requirements.md`.
 2. **Extract** key terms from:
    - Process Name
    - Swimlane names (Departments)
@@ -32,7 +32,7 @@ This skill handles the "Retrieval" step. It analyzes the structured requirements
 ### Step 3: Report Generation
 
 1. **Receive** the report from the `asset-librarian`.
-2. **Create** `output/[project_name]/asset_search_report.md` using the standard template:
+2. **Create** `1-输入/[P-project_name]/[process_name]/asset_search_report.md` using the standard template:
 
    ```markdown
    # Asset Search Report - [Project Name]
