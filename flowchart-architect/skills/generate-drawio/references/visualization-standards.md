@@ -1,74 +1,54 @@
-# Visualization Standards
+# Visualization Standards (Strict Assembly)
 
-Standard rules for layout, spacing, and shape usage in flowcharts.
+## 1. Core Principle
+**"Assembly over Creation"**: Do not generate random styles. Strictly assemble the diagram using the constants below.
 
-## Layout Rules
+## 2. Canvas & Layout
+- **Page Width**: 1200px
+- **Container Width**: 980px
+- **Columns**:
+    1. **Seq**: 40px
+    2. **I/O Docs**: 120px
+    3. **Dept 1**: 223px
+    4. **Dept 2**: 223px
+    5. **Dept 3**: 224px
+    6. **Description**: 150px
 
-### Swimlanes
-- **Orientation**: Horizontal (Left-to-Right) is preferred for time-based processes. Vertical (Top-to-Down) for hierarchical flows.
-- **Ordering**:
-    - **Customer/External**: Topmost swimlane
-    - **Front Office**: Middle swimlanes
-    - **Back Office/Systems**: Bottom swimlanes
-- **Height/Width**: Minimum 150px per swimlane.
+## 3. Strict Color Palette
+| Element | Hex Code |
+| :--- | :--- |
+| **Header** | `#f8f9fa` |
+| **Dept 1** | `#ffffff` |
+| **Dept 2** | `#ffffff` |
+| **Dept 3** | `#ffffff` |
+| **Process Node** | `#ffffff` (Stroke: `#0056b3`) |
+| **System Tag** | `#000099` (Text: `#ffffff`) |
 
-### Spacing Guidelines (Legacy Standard)
-- **Vertical gap between elements**: 80-100px
-- **Horizontal margin within lane**: 10-35px
-- **Lane top margin**: 20px (after swimlane header)
-- **Padding**: Keep 20px padding inside swimlane borders.
+## 4. Component Snippets (XML Patterns)
 
-## Dimension Guidelines
-
-### Standard Sizes
-- **Process box**: 130x50 px
-- **Data box**: 130x60 px
-- **Start/End**: 80x40 px
-- **Decision**: 80x80 px
-
-### Grid System
-- Geometry uses **10-unit grid** coordinates.
-- Align all centers to the swimlane center line.
-
-## XML Template Patterns
-
-### Basic Process Box
+### Process Box (Fixed 120x60)
 ```xml
-<mxCell id="[unique-id]" 
-  value="[Step Name]" 
-  style="whiteSpace=wrap;html=1;rounded=0;strokeColor=#0056b3;strokeWidth=2;arcSize=14;fillColor=#ffffff;" 
-  parent="[lane-id]" vertex="1">
-  <mxGeometry x="[x]" y="[y]" width="130" height="50" as="geometry"/>
+<mxCell id="[id]" value="[Name]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0056b3;" vertex="1" parent="[lane_id]">
+  <mxGeometry x="[center_x]" y="[y]" width="120" height="60" as="geometry"/>
 </mxCell>
 ```
 
-### Basic Connector/Edge
+### Document with System Tag (Group)
 ```xml
-<mxCell id="edge-[from]-[to]" 
-  style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;" 
-  parent="[container-id]" source="[source-id]" target="[target-id]" edge="1">
+<mxCell id="[id]_group" value="" style="group" vertex="1" connectable="0" parent="[lane_id]">
+  <mxGeometry x="[center_x]" y="[y]" width="120" height="70" as="geometry"/>
+</mxCell>
+<mxCell id="[id]_doc" value="[Name]" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;size=0.25;" vertex="1" parent="[id]_group">
+  <mxGeometry width="120" height="70" as="geometry"/>
+</mxCell>
+<mxCell id="[id]_tag" value="&lt;b&gt;[TAG]&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000099;fontColor=#ffffff;strokeColor=none;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="[id]_group">
+  <mxGeometry width="30" height="15" as="geometry"/>
+</mxCell>
+```
+
+### Connector (Orthogonal)
+```xml
+<mxCell id="edge-[from]-[to]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;" edge="1" parent="[container_id]" source="[from]" target="[to]">
   <mxGeometry relative="1" as="geometry"/>
-</mxCell>
-```
-
-### Labeled Connector (Decision Branch)
-```xml
-<mxCell id="edge-label-[id]" 
-  value="Yes" 
-  style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" 
-  parent="edge-[from]-[to]" vertex="1" connectable="0">
-  <mxGeometry x="-0.2" y="0" relative="1" as="geometry">
-    <mxPoint as="offset"/>
-  </mxGeometry>
-</mxCell>
-```
-
-### Swimlane Definition
-```xml
-<mxCell id="[lane-id]" 
-  value="[Lane Name]" 
-  style="swimlane;html=1;startSize=20;horizontal=0;" 
-  parent="swimlane-container" vertex="1">
-  <mxGeometry x="[x]" y="0" width="[width]" height="[total-height]" as="geometry"/>
 </mxCell>
 ```

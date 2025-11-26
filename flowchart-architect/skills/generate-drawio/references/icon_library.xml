@@ -1,0 +1,61 @@
+<mxlibrary>
+  <!-- 1. Process Step (Fixed 120x60, White, Blue Stroke) -->
+  <add as="process_step">
+    <mxCell id="process_step_template" value="[Step Name]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0056b3;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry width="120" height="60" as="geometry"/>
+    </mxCell>
+  </add>
+
+  <!-- 2. Document with System Tag (Group) -->
+  <add as="document_with_tag">
+    <mxCell id="doc_group_template" value="" style="group" vertex="1" connectable="0" parent="1">
+      <mxGeometry width="120" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="doc_shape_template" value="[Doc Name]" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;size=0.25;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="doc_group_template">
+      <mxGeometry width="120" height="70" as="geometry"/>
+    </mxCell>
+    <mxCell id="doc_tag_template" value="&lt;b&gt;[TAG]&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000099;fontColor=#ffffff;strokeColor=none;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="doc_group_template">
+      <mxGeometry width="30" height="15" as="geometry"/>
+    </mxCell>
+  </add>
+
+  <!-- 3. Decision Node (80x80, White, Purple Stroke) -->
+  <add as="decision_node">
+    <mxCell id="decision_template" value="?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6f42c1;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry width="80" height="80" as="geometry"/>
+    </mxCell>
+  </add>
+
+  <!-- 4. Start/End (80x40, Green) -->
+  <add as="terminator">
+    <mxCell id="terminator_template" value="Start/End" style="shape=mxgraph.flowchart.start_1;whiteSpace=wrap;fillColor=#4caf50;strokeColor=#4caf50;fontColor=#ffffff;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry width="80" height="40" as="geometry"/>
+    </mxCell>
+  </add>
+
+  <!-- 5. Connector (Orthogonal, Black, 2px) -->
+  <add as="connector">
+    <mxCell id="connector_template" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+  </add>
+  <!-- SAP Process Step (Group with Logo) -->
+  <add as="sap_step">
+    <mxCell id="sap_group_template" value="" style="group" vertex="1" connectable="0" parent="1">
+      <mxGeometry width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="sap_main_template" value="Process Name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0056b3;strokeWidth=2;align=center;verticalAlign=middle;" vertex="1" parent="sap_group_template">
+      <mxGeometry width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="sap_logo_template" value="SAP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000099;fontColor=#ffffff;strokeColor=none;align=center;verticalAlign=middle;fontSize=10;fontStyle=1" vertex="1" parent="sap_group_template">
+      <mxGeometry width="30" height="15" as="geometry" />
+    </mxCell>
+  </add>
+
+  <!-- Subprocess Step (Double Vertical Lines) -->
+  <add as="subprocess_step">
+    <mxCell value="Subprocess" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#ffffff;strokeColor=#0056b3;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry width="120" height="60" as="geometry" />
+    </mxCell>
+  </add>
+</mxlibrary>
