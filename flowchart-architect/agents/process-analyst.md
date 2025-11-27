@@ -61,31 +61,31 @@ You will be invoked in one of three specific scenarios. Identify which scenario 
 
 ```json
 {
-  "metadata": {
-    "project_name": "[Name]",
-    "diagram_title": "[Title]",
-    "total_height": [Calculated Height]
+  "meta": {
+    "process_name": "[Name]",
+    "version": "1.0"
   },
   "swimlanes": [
-    {
-      "name": "[Dept Name]",
-      "width": 200,
-      "elements": [
-        {
-          "id": "step_10",
-          "type": "process",
-          "text": "[Step Description]",
-          "system": "[System Name or null]",
-          "io_document": "[Doc Name or null]"
-        }
-      ]
-    }
+    { "id": "lane_pmc", "name": "Production Control", "type": "department" },
+    { "id": "lane_purchasing", "name": "Purchasing", "type": "department" }
   ],
-  "connections": [
+  "steps": [
     {
-      "from": "step_10",
-      "to": "step_20",
-      "label": "[Condition if any]"
+      "id": "step_10",
+      "type": "process",
+      "name": "Check Inventory",
+      "lane_id": "lane_pmc",
+      "next": ["step_20"],
+      "system_tag": "SAP",
+      "doc_ref": "Inventory Report"
+    },
+    {
+      "id": "step_20",
+      "type": "decision",
+      "name": "Enough Stock?",
+      "lane_id": "lane_pmc",
+      "next": { "Yes": "step_30", "No": "step_40" },
+      "x_offset": 0
     }
   ]
 }

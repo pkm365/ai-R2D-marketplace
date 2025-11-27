@@ -21,7 +21,7 @@ This skill handles the "Retrieval" step. It analyzes the structured requirements
 2. **Extract** key terms from:
    - Process Name
    - Swimlane names (Departments)
-   - System names (e.g., SAP, MES)
+   - System names (e.g., ERP, MES)
    - Key actions in the Process Flow Matrix
 
 ### Step 2: Invoke Asset Librarian

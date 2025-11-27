@@ -42,7 +42,7 @@ Every report must follow this structure:
 
 ## Detailed Analysis
 [One bullet point per finding, explaining WHY it matches]
-- **[Filename]**: Matches keyword "Return" in title and contains "SAP T-Code MB21" in content. (Source: grep)
+- **[Filename]**: Matches keyword "Return" in title and contains "ERP T-Code MB21" in content. (Source: grep)
 - **[Filename]**: Matches keyword "Quality" but seems to be for a different department. (Source: read)
 
 ## Data Tables
@@ -73,7 +73,7 @@ Every report must follow this structure:
 ## Example (Using find/glob & grep)
 
 **Input Task:**
-"Search for standard process templates related to: Material Return, SAP, Quality Audit."
+"Search for standard process templates related to: Material Return, ERP, Quality Audit."
 
 **Expected Output:**
 
@@ -81,21 +81,21 @@ Every report must follow this structure:
 # Asset Search Report
 
 ## Summary
-Found 2 relevant templates for "Material Return". One is specific to SAP processes, the other is a general warehouse flow. No direct match found for "Quality Audit" combined with Return.
+Found 2 relevant templates for "Material Return". One is specific to ERP processes, the other is a general warehouse flow. No direct match found for "Quality Audit" combined with Return.
 
 ## Key Findings
-- **Top Match**: `02_Material_Return_SAP.md` (Relevance: High)
+- **Top Match**: `02_Material_Return_ERP.md` (Relevance: High)
 - **Alternative**: `General_Warehouse_Return.md` (Relevance: Medium)
 
 ## Detailed Analysis
-- **02_Material_Return_SAP.md**: Filename contains "Material_Return" and "SAP". Content confirms it covers T-Code MB21. (Source: find & grep)
+- **02_Material_Return_ERP.md**: Filename contains "Material_Return" and "ERP". Content confirms it covers T-Code MB21. (Source: find & grep)
 - **General_Warehouse_Return.md**: Filename matches "Return", but content is generic. (Source: find)
 
 ## Data Tables
 
 | Template Name | Path | Match Type |
 |---------------|------|------------|
-| 02_Material_Return_SAP.md | standard_process_templates/02_Material_Return_SAP.md | Name & Content |
+| 02_Material_Return_ERP.md | standard_process_templates/02_Material_Return_ERP.md | Name & Content |
 | General_Warehouse_Return.md | standard_process_templates/General_Warehouse_Return.md | Name Only |
 
 ## Concerns/Notes

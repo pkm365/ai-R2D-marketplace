@@ -3,12 +3,23 @@ import json
 import os
 import copy
 
-# Paths
-BASE_DIR = "/Users/jarryfeng/Documents/Projects/ai-R2D-marketplace"
-TEMPLATE_PATH = os.path.join(BASE_DIR, "flowchart-architect/skills/generate-drawio/references/standard_template_v1.xml")
-ICON_LIB_PATH = os.path.join(BASE_DIR, "flowchart-architect/skills/generate-drawio/references/icon_library.xml")
-LOGIC_PATH = os.path.join(BASE_DIR, "1-输入/P-flowchart-analysis/flowchart-process/logic_structure.json")
-OUTPUT_PATH = os.path.join(BASE_DIR, "1-输入/P-flowchart-analysis/flowchart-process/diagram.drawio")
+import argparse
+
+# Default Paths
+# Calculate base directory relative to this script:
+# script is in: flowchart-architect/skills/generate-drawio/script/
+# base is 4 levels up
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "../../../.."))
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Generate Draw.io flowchart from logic JSON.")
+    parser.add_argument("--2l", dest="use_2_lane", action="store_true", help="Force use of 2-lane template")
+    parser.add_argument("--3l", dest="use_3_lane", action="store_true", help="Force use of 3-lane template")
+    parser.add_argument("--base_dir", default=DEFAULT_BASE_DIR, help="Base directory for the project")
+    parser.add_argument("--logic_path", required=True, help="Path to the logic structure JSON file")
+    parser.add_argument("--output_path", required=True, help="Path for the output Draw.io file")
+    return parser.parse_args()
 
 def load_xml(path):
     tree = ET.parse(path)
@@ -39,10 +50,46 @@ def get_icon_cells(lib_root, icon_type):
     return []
 
 def main():
-    print("Loading resources...")
-    template_tree, template_root = load_xml(TEMPLATE_PATH)
-    lib_tree, lib_root = load_xml(ICON_LIB_PATH)
-    logic = load_json(LOGIC_PATH)
+    args = parse_arguments()
+    
+    base_dir = args.base_dir
+    
+    # Define paths based on base_dir
+    template_2_lane_path = os.path.join(base_dir, "flowchart-architect/skills/generate-drawio/references/canvas_template_2_lanes.xml")
+    template_3_lane_path = os.path.join(base_dir, "flowchart-architect/skills/generate-drawio/references/canvas_template_3_lanes.xml")
+    icon_lib_path = os.path.join(base_dir, "flowchart-architect/skills/generate-drawio/references/icon_library.xml")
+    
+    # Logic and Output paths
+    logic_path = args.logic_path
+    output_path = args.output_path
+
+    print(f"Loading logic from {logic_path}...")
+    logic = load_json(logic_path)
+
+    # Determine Template based on Swimlanes
+    dept_lanes = [l for l in logic['swimlanes'] if l['type'] == 'department']
+    num_depts = len(dept_lanes)
+    
+    if args.use_2_lane:
+        print("Forcing 2-Lane Template.")
+        template_path = template_2_lane_path
+        total_width = 800
+    elif args.use_3_lane:
+        print("Forcing 3-Lane Template.")
+        template_path = template_3_lane_path
+        total_width = 800
+    elif num_depts <= 2:
+        print(f"Detected {num_depts} departments. Using 2-Lane Template (A4).")
+        template_path = template_2_lane_path
+        total_width = 800
+    else:
+        print(f"Detected {num_depts} departments. Using 3-Lane Template (A4).")
+        template_path = template_3_lane_path
+        total_width = 800
+
+    print(f"Loading template from {template_path}...")
+    template_tree, template_root = load_xml(template_path)
+    lib_tree, lib_root = load_xml(icon_lib_path)
 
     root_model = template_root.find('.//root')
     
@@ -58,12 +105,8 @@ def main():
         "col_desc": 150
     }
     
-    # Identify Department Lanes
-    dept_lanes = [l for l in logic['swimlanes'] if l['type'] == 'department']
-    num_depts = len(dept_lanes)
-    
     # Calculate Widths
-    total_width = 980 # Main container width
+    # total_width is set above based on template selection
     available_width = total_width - sum(fixed_cols.values())
     dept_width = available_width / num_depts if num_depts > 0 else 220
     
@@ -105,7 +148,12 @@ def main():
         
     # Update Description Column Position
     if 'col_desc' in cells_map:
-        geo = cells_map['col_desc'].find('mxGeometry')
+        desc_cell = cells_map['col_desc']
+        # Move to end of list to ensure it renders on the right
+        root_model.remove(desc_cell)
+        root_model.append(desc_cell)
+        
+        geo = desc_cell.find('mxGeometry')
         if geo is not None:
             geo.set('x', str(current_x))
             
@@ -154,15 +202,15 @@ def main():
         
         # Determine specific template based on tags
         template_key = icon_type_map.get(step_type, "process_step")
-        if step.get('system_tag') == "SAP":
-            template_key = "sap_step"
+        if step.get('system_tag'):
+            template_key = "system_step"
             
         cells = get_icon_cells(lib_root, template_key)
         
         if cells:
             # Check if it's a group (more than 1 cell)
             if len(cells) > 1:
-                # Group Handling (SAP Step)
+                # Group Handling (System Step)
                 group_parent = None
                 children = []
                 for cell in cells:
@@ -177,8 +225,8 @@ def main():
                     main_cell.set('parent', target_lane_xml_id)
                     
                     # Center Group
-                    lane_width = 245 if "dept" in target_lane_xml_id else 150
-                    node_width = int(main_cell.find('mxGeometry').get('width', 120))
+                    lane_width = dept_width if "dept" in target_lane_xml_id else 150
+                    node_width = int(main_cell.find('mxGeometry').get('width', 100))
                     center_x = (lane_width - node_width) / 2
                     
                     main_cell.find('mxGeometry').set('x', str(center_x))
@@ -191,6 +239,9 @@ def main():
                         # Update text if it's the main label
                         if "Process Name" in child.get('value', ''):
                             child.set('value', step['name'])
+                        # Update System Tag
+                        if "[SYS]" in child.get('value', ''):
+                            child.set('value', step['system_tag'])
                         # Generate unique ID
                         child.set('id', f"{step_id}_{child.get('id')}")
                         root_model.append(child)
@@ -202,8 +253,8 @@ def main():
                 main_cell.set('parent', target_lane_xml_id)
                 
                 # Center
-                lane_width = 245 if "dept" in target_lane_xml_id else 150
-                node_width = int(main_cell.find('mxGeometry').get('width', 120))
+                lane_width = dept_width if "dept" in target_lane_xml_id else 150
+                node_width = int(main_cell.find('mxGeometry').get('width', 100))
                 center_x = (lane_width - node_width) / 2
                 
                 # Apply X Offset
@@ -212,7 +263,7 @@ def main():
                 main_cell.find('mxGeometry').set('x', str(center_x))
                 main_cell.find('mxGeometry').set('y', str(y_cursor))
                 
-                if 'system_tag' in step and template_key != "sap_step":
+                if 'system_tag' in step and template_key != "system_step":
                      main_cell.set('value', f"{step['name']}\n[{step['system_tag']}]")
                 
                 root_model.append(main_cell)
@@ -255,7 +306,8 @@ def main():
                     new_group_id = f"doc_group_{i}"
                     group_parent.set('id', new_group_id)
                     group_parent.set('parent', lane_ids['io'])
-                    group_parent.find('mxGeometry').set('x', "0") # Center of 120px is 0 if width=120
+                    # Center in 120px column: (120 - 100) / 2 = 10
+                    group_parent.find('mxGeometry').set('x', "10") 
                     group_parent.find('mxGeometry').set('y', str(y_cursor))
                     root_model.append(group_parent)
                     
@@ -285,6 +337,7 @@ def main():
         geo = cells_map['main_container'].find('mxGeometry')
         if geo is not None:
             geo.set('height', str(total_height))
+            geo.set('width', str(total_width))
             
     # Resize All Columns
     # lane_ids is already defined
@@ -356,34 +409,30 @@ def main():
             if src_lane_idx == tgt_lane_idx:
                 # Same Lane
                 if label == "No":
-                    # Bypass Logic: Exit Right, Entry Right, Push out
+                    # Bypass/Loop Logic: Exit Right, Entry Right
                     exit_side = "right"
                     entry_side = "right"
-                    jetty = "40"
+                    jetty = "25"
                 elif label == "Yes":
+                    # Standard Flow
                     exit_side = "bottom"
                     entry_side = "top"
                 elif target_y < source_y:
-                    # Loop Up in same lane?
+                    # Loop Back Up
                     exit_side = "left"
                     entry_side = "left"
-            else:
-                # Cross Lane
-                if src_lane_idx < tgt_lane_idx:
-                    # Left to Right (PMC -> Purchasing)
-                    exit_side = "right"
-                    entry_side = "left"
                 else:
-                    # Right to Left (Purchasing -> PMC)
-                    if target_y < source_y:
-                        # Loop Up (Purchasing -> Material Check)
-                        # User request: Right side return up
-                        exit_side = "right"
-                        entry_side = "top"
-                    else:
-                        # Downward (Purchasing -> Release)
-                        exit_side = "left"
-                        entry_side = "right"
+                    # Standard Downward
+                    exit_side = "bottom"
+                    entry_side = "top"
+            elif src_lane_idx < tgt_lane_idx:
+                # Left to Right (e.g. PMC -> Purchasing)
+                exit_side = "right"
+                entry_side = "left"
+            else: # src_lane_idx > tgt_lane_idx
+                # Right to Left (e.g. Purchasing -> PMC)
+                exit_side = "left"
+                entry_side = "right"
 
             # Manual Config Overrides
             if 'exit' in source_config: exit_side = source_config['exit']
@@ -413,8 +462,8 @@ def main():
             
             root_model.append(edge)
 
-    template_tree.write(OUTPUT_PATH)
-    print(f"Diagram saved to {OUTPUT_PATH}")
+    template_tree.write(output_path)
+    print(f"Diagram saved to {output_path}")
 
 if __name__ == "__main__":
     main()

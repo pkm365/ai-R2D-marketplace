@@ -24,7 +24,7 @@ This schema defines the input format for `assembler.py`. To generate a standardi
 | `name` | String | Main text label. |
 | `description` | String | (Optional) Side note text. |
 | `lane_id` | String | ID of the swimlane this step belongs to. |
-| `system_tag` | String | (Optional) e.g., "SAP". Adds the blue SAP logo group. |
+| `system_tag` | String | (Optional) e.g., "ERP". Adds a system tag group. |
 | `doc_ref` | String | (Optional) Input document name. Adds document icon. |
 | `doc_output` | String | (Optional) Output document name. Adds document icon. |
 | `next` | Array/Dict | List of next step IDs (for process) or Dict of Label->ID (for decision). |

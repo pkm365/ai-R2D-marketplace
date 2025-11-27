@@ -1,45 +1,44 @@
 ---
 name: generate-drawio
-description: Generates a Draw.io XML file from the logic structure, applying strict brand and visualization standards.
+description: Generates a Draw.io XML file from the logic structure using the assembler script.
 ---
 
 # Generate DrawIO Skill
+
 ## Overview
 
-This skill is the "generate-drawio". It takes the abstract logic structure defined by the Process Analyst and converts it into a concrete, visual Draw.io XML file. It MUST strictly adhere to the project's brand guidelines and visualization standards to ensure a consistent, professional look.
+This skill automates the generation of a Draw.io flowchart by executing the `assembler.py` script. It takes a `logic_structure.json` file as input and produces a `diagram.drawio` file, applying all visualization standards and template selections automatically.
 
 ## Inputs
 
-- `1-输入/[P-project_name]/[process_name]/logic_structure.json` (MANDATORY): The source logic to visualize.
-- `skills/generate-drawio/references/brand-guidelines.md` (MANDATORY): Defines colors, fonts, and logo usage.
-- `skills/generate-drawio/references/visualization-standards.md` (MANDATORY):2.  **Generate Diagram**:
-    - Run the assembler script: `uv run flowchart-architect/skills/generate-drawio/script/assembler.py`
-    - The script will load `standard_template_v1.xml` and `logic_structure.json` to generate `diagram.drawio`.
-- `skills/generate-drawio/references/icon_library.xml` (MANDATORY): The "Golden Snippets" for all components. **MUST** copy XML from here.
+-   `logic_path` (MANDATORY): The absolute path to the `logic_structure.json` file.
+-   `output_path` (MANDATORY): The absolute path where the `diagram.drawio` file should be saved.
+-   `flags` (OPTIONAL):
+    -   `--2l`: Force use of the 2-lane (A4) template.
+    -   `--3l`: Force use of the 3-lane (Wide) template.
 
 ## Workflow
 
-**Objective**: Construct the Draw.io XML string.
+**Objective**: Execute the assembler script to generate the flowchart.
 
-1. **Apply Styles**:
-   - Use the **Primary Color** from `brand-guidelines.md` for main process steps.
-   - Use the **Secondary Color** for decision diamonds.
-   - Apply the correct **Font Family** to all labels.
-    - **Layout Hints**: You MUST infer layout requirements from the image and populate `x_offset` and `port_config` accordingly:
-        - **Parallel Splits**: Use `x_offset: -90` for the start node and `entry: left` for branches.
-        - **Parallel Merges**: Use `exit: right` and `jetty: 60` to force wide overlaps.
-        - **Loops**: Use `exit: right` and `entry: top` for upward loops.
-    - **Swimlanes**: The script automatically adjusts to the number of swimlanes defined in your JSON (e.g., 2, 3, or more). No manual template selection is needed.
-2. **Construct Elements**:
-   - Create `<mxCell>` tags for each node and connection.
-   - Ensure all IDs match the `logic_structure.json`.
-   - Add metadata (Project Name, Date) to the diagram header/footer if required.
+1.  **Identify Paths**: Determine the absolute paths for the input logic file and the desired output file.
+2.  **Execute Assembler**: Run the python script using `uv run`.
 
-### Step 4: Write Output
+    ```bash
+    uv run flowchart-architect/skills/generate-drawio/script/assembler.py \
+      --logic_path "[ABSOLUTE_PATH_TO_LOGIC_JSON]" \
+      --output_path "[ABSOLUTE_PATH_TO_OUTPUT_DRAWIO]" \
+      [OPTIONAL_FLAGS]
+    ```
 
-1. **Create** `1-输入/[P-project_name]/[process_name]/diagram.drawio`.
-2. **Verify**: Ensure the file is valid XML and can be opened in Draw.io.
+    *Example:*
+    ```bash
+    uv run flowchart-architect/skills/generate-drawio/script/assembler.py \
+      --logic_path "/Users/jarryfeng/projects/my-process/logic_structure.json" \
+      --output_path "/Users/jarryfeng/projects/my-process/diagram.drawio" \
+      --2l
+    ```
 
 ## Output
 
-- `1-输入/[P-project_name]/[process_name]/diagram.drawio`: The final, editable flowchart file.
+-   `[output_path]`: The generated Draw.io XML file, ready to be opened in Draw.io.

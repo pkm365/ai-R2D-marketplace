@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
-  <diagram id="R2D-Standard-Template-V1" name="Standard Process">
-    <mxGraphModel dx="1257" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <diagram id="R2D-Standard-Template-3-Lanes" name="Standard Process 3 Lanes">
+    <mxGraphModel dx="1934" dy="1151" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -14,16 +14,16 @@
           <mxGeometry x="40" y="30" width="120" height="570" as="geometry" />
         </mxCell>
         <mxCell id="col_dept1" value="Dept 1" style="swimlane;html=1;startSize=30;fillColor=#ffffff;fontColor=#000000;strokeColor=#000000;strokeWidth=2;" parent="main_container" vertex="1">
-          <mxGeometry x="160" y="30" width="220" height="570" as="geometry" />
+          <mxGeometry x="160" y="30" width="163" height="570" as="geometry" />
         </mxCell>
         <mxCell id="col_dept2" value="Dept 2" style="swimlane;html=1;startSize=30;fillColor=#ffffff;fontColor=#000000;strokeColor=#000000;strokeWidth=2;" parent="main_container" vertex="1">
-          <mxGeometry x="380" y="30" width="220" height="570" as="geometry" />
+          <mxGeometry x="323" y="30" width="163" height="570" as="geometry" />
         </mxCell>
         <mxCell id="col_dept3" value="Dept 3" style="swimlane;html=1;startSize=30;fillColor=#ffffff;fontColor=#000000;strokeColor=#000000;strokeWidth=2;" parent="main_container" vertex="1">
-          <mxGeometry x="600" y="30" width="220" height="570" as="geometry" />
+          <mxGeometry x="486" y="30" width="164" height="570" as="geometry" />
         </mxCell>
         <mxCell id="col_desc" value="Description" style="swimlane;html=1;startSize=30;fillColor=#ffffff;fontColor=#000000;strokeColor=#000000;strokeWidth=2;" parent="main_container" vertex="1">
-          <mxGeometry x="820" y="30" width="150" height="570" as="geometry" />
+          <mxGeometry x="650" y="30" width="150" height="570" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

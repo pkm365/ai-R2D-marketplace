@@ -1,13 +1,13 @@
 ---
 name: orchestrate-process
-description: Orchestrates the complete Requirement-to-Diagram (R2D) workflow by coordinating specialized skills and agents to transform business requirements into professional draw.io flowcharts. Manages the end-to-end process from requirement solicitation through diagram generation and quality assurance.
+description: Orchestrates the complete Requirement-to-Diagram (R2Diagram) workflow by coordinating specialized skills and agents to transform business requirements into professional draw.io flowcharts. Manages the end-to-end process from requirement solicitation through diagram generation and quality assurance.
 ---
 
 # Process Orchestration
 
 ## Overview
 
-This skill orchestrates the complete Requirement-to-Diagram (R2D) workflow by coordinating specialized agents and skills to transform business requirements into professional draw.io flowcharts. It manages the entire process from initial requirement gathering through asset retrieval, logic definition, diagram generation, and quality assurance.
+This skill orchestrates the complete Requirement-to-Diagram (R2Diagram) workflow by coordinating specialized agents and skills to transform business requirements into professional draw.io flowcharts. It manages the entire process from initial requirement gathering through asset retrieval, logic definition, diagram generation, and quality assurance.
 
 **Core Principle**: Each step is handled by specialized skills with clear responsibilities, ensuring professional-quality outputs through systematic coordination and validation.Never generate these elements manually.
 
@@ -17,12 +17,12 @@ Use this skill when:
 - The user needs a complete flowchart generated from business requirements
 - Multiple stakeholders or systems need to be represented in the diagram
 - Complex business logic requires professional visualization
-- Quality assurance and brand compliance are critical
+- Quality assurance and brand compliance are critical    
 - Iterative refinement based on user feedback is expected
 
 ## Process Workflow
 
-Execute all steps below systematically. Use these as ToDos to track your progress through the R2D workflow.
+Execute all steps below systematically. Use these as ToDos to track your progress through the R2Diagram workflow.
 
 ### Step 1: Create Plan
 
@@ -33,7 +33,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 2. The plan file **MUST** use the following template structure:
 
    ```markdown
-   # [Project Name] - R2D Process Plan
+   # [Project Name] - R2Diagram Process Plan
 
    ## Workflow Status
    - [ ] Step 1: Create Plan
@@ -163,7 +163,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 **Objective**: Compare requirements against standard templates and identify deviations.
 
-1. **MANDATORY**: Invoke `analyze-gap` skill with `mode=GAP_ANALYSIS` to:
+1. **MANDATORY**: Invoke `define-logic` skill with `mode=GAP_ANALYSIS` to:
    - Compare business requirements with standard template
    - Identify logical deviations and custom requirements
    - Document gap analysis findings
@@ -191,9 +191,9 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 
 **Objective**: Extract and structure the complete business logic for the diagram.
 
-1. **MANDATORY**: Invoke `analyze-gap` skill with `mode=LOGIC_SYNTHESIS` to extract logic:
-   - **If assets found**: Merge standard template with gap analysis
-   - **If no assets**: Perform fresh logic extraction from requirements
+1. **MANDATORY**: Invoke `define-logic` skill with `mode=LOGIC_SYNTHESIS` to extract logic:
+   - **Step 1**: Transform `requirements.md` into `process_flow_matrix.md` (Standard Matrix).
+   - **Step 2**: Execute `define-logic` (Mode 4) to generate `logic_structure.json` from the Matrix.
 
 2. Create logic structure file at: `1-输入/[P-project_name]/[process_name]/logic_structure.json`
 
@@ -235,7 +235,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
    - **CRITICAL**: Do NOT proceed to Step 5 until the user explicitly replies "Yes" or "Confirmed".
 
 4. **If modifications requested**:
-   - Invoke `analyze-gap` skill with `mode=LOGIC_UPDATE` to apply changes.
+   - Invoke `define-logic` skill with `mode=LOGIC_UPDATE` to apply changes.
    - Repeat Step 4.5 until confirmed.
 
 5. **Update Plan**:
@@ -311,10 +311,11 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 ### Logic Changes
 
 1. User requests changes to process steps, decision points, or data flow
-2. Update `1-输入/[P-project_name]/[process_name]/logic_structure.json`
-3. Regenerate `1-输入/[P-project_name]/[process_name]/diagram.drawio` from Step 5
-4. Re-run QA audit
-5. Deliver updated diagram (v2, v3, etc.)
+2. Update `1-输入/[P-project_name]/[process_name]/requirements.md` (Process Flow Matrix)
+3. Regenerate `1-输入/[P-project_name]/[process_name]/logic_structure.json` (via define-logic)
+4. Regenerate `1-输入/[P-project_name]/[process_name]/diagram.drawio` from Step 5
+5. Re-run QA audit
+6. Deliver updated diagram (v2, v3, etc.)
 
 ### Style/Visual Changes
 
@@ -332,7 +333,7 @@ Execute all steps below systematically. Use these as ToDos to track your progres
 - **Responsibility**: Requirement gathering
 - **Outputs**: requirements.md
 
-### analyze-gap
+### define-logic
 - **Responsibility**: Logic extraction, gap analysis
 - **Outputs**: logic_structure.json, gap_analysis.json
 
@@ -378,7 +379,7 @@ Verify completion before delivery:
 **Skill Invocations** (MANDATORY):
 - `solicit-requirements` - For requirement gathering and clarification
 - `search-standard-assets` - For standard template retrieval
-- `analyze-gap` - For gap analysis and logic extraction
+- `define-logic` - For gap analysis and logic extraction
 - `generate-drawio` - For diagram generation from logic structure
 
 **File Operations**:
@@ -402,8 +403,8 @@ Execute workflow:
 1. **Step 1**: Create Plan.md  ->  Initialize process tracking
 2. **Step 2**: solicit-requirements  ->  Document order validation, payment processing, inventory checks, shipping
 3. **Step 3**: search-standard-assets  ->  Find existing "Order Processing Template"
-4. **Step 4A**: analyze-gap (GAP_ANALYSIS)  ->  Identify custom return policy logic
-5. **Step 4B**: analyze-gap (LOGIC_SYNTHESIS)  ->  Merge template with custom logic in logic_structure.json
+4. **Step 4A**: define-logic (GAP_ANALYSIS)  ->  Identify custom return policy logic
+5. **Step 4B**: define-logic (LOGIC_SYNTHESIS)  ->  Merge template with custom logic in logic_structure.json
 6. **Step 4.5**: Present "I will draw: Order Input  ->  Validation  ->  Payment  ->  Inventory  ->  Shipping  ->  Output"
 7. **Step 5**: generate-drawio  ->  Create professional swimlane diagram
 8. **Step 6**: xml-auditor agent  ->  Validate syntax and brand compliance

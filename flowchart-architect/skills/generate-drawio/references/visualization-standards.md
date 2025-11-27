@@ -4,14 +4,14 @@
 **"Assembly over Creation"**: Do not generate random styles. Strictly assemble the diagram using the constants below.
 
 ## 2. Canvas & Layout
-- **Page Width**: 1200px
-- **Container Width**: 980px
+- **Page Width**: 827px (A4)
+- **Container Width**: 800px
 - **Columns**:
     1. **Seq**: 40px
     2. **I/O Docs**: 120px
-    3. **Dept 1**: 223px
-    4. **Dept 2**: 223px
-    5. **Dept 3**: 224px
+    3. **Dept 1**: 163px
+    4. **Dept 2**: 163px
+    5. **Dept 3**: 164px
     6. **Description**: 150px
 
 ## 3. Strict Color Palette
@@ -26,23 +26,30 @@
 
 ## 4. Component Snippets (XML Patterns)
 
-### Process Box (Fixed 120x60)
+### Process Box (Fixed 100x50)
 ```xml
-<mxCell id="[id]" value="[Name]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0056b3;" vertex="1" parent="[lane_id]">
-  <mxGeometry x="[center_x]" y="[y]" width="120" height="60" as="geometry"/>
+<mxCell id="[id]" value="[Name]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0056b3;fontSize=10;" vertex="1" parent="[lane_id]">
+  <mxGeometry x="[center_x]" y="[y]" width="100" height="50" as="geometry"/>
+</mxCell>
+```
+
+### Decision Node (60x60)
+```xml
+<mxCell id="[id]" value="?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6f42c1;strokeWidth=2;fontSize=10;" vertex="1" parent="[lane_id]">
+  <mxGeometry x="[center_x]" y="[y]" width="60" height="60" as="geometry"/>
 </mxCell>
 ```
 
 ### Document with System Tag (Group)
 ```xml
 <mxCell id="[id]_group" value="" style="group" vertex="1" connectable="0" parent="[lane_id]">
-  <mxGeometry x="[center_x]" y="[y]" width="120" height="70" as="geometry"/>
+  <mxGeometry x="[center_x]" y="[y]" width="100" height="60" as="geometry"/>
 </mxCell>
-<mxCell id="[id]_doc" value="[Name]" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;size=0.25;" vertex="1" parent="[id]_group">
-  <mxGeometry width="120" height="70" as="geometry"/>
+<mxCell id="[id]_doc" value="[Name]" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;size=0.25;fontSize=10;" vertex="1" parent="[id]_group">
+  <mxGeometry width="100" height="60" as="geometry"/>
 </mxCell>
-<mxCell id="[id]_tag" value="&lt;b&gt;[TAG]&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000099;fontColor=#ffffff;strokeColor=none;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="[id]_group">
-  <mxGeometry width="30" height="15" as="geometry"/>
+<mxCell id="[id]_tag" value="&lt;b&gt;[TAG]&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000099;fontColor=#ffffff;strokeColor=none;align=center;verticalAlign=middle;fontSize=9;" vertex="1" parent="[id]_group">
+  <mxGeometry width="26" height="12" as="geometry"/>
 </mxCell>
 ```
 
