@@ -96,7 +96,8 @@ def convert_to_logic_structure(table_data, process_name="Generated Process"):
             "lane_id": swimlanes[role]['id'],
             "next": next_steps,
             "system_tag": row.get('System', '') if row.get('System', '') else None,
-            "doc_ref": row.get('Documents', '') if row.get('Documents', '') else None
+            "doc_ref": row.get('Documents', '') if row.get('Documents', '') else None,
+            "description": row.get('Detailed Description', '')
         }
         steps.append(step)
 

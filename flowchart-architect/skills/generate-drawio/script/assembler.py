@@ -263,7 +263,7 @@ def main():
                 main_cell.find('mxGeometry').set('x', str(center_x))
                 main_cell.find('mxGeometry').set('y', str(y_cursor))
                 
-                if 'system_tag' in step and template_key != "system_step":
+                if step.get('system_tag') and template_key != "system_step":
                      main_cell.set('value', f"{step['name']}\n[{step['system_tag']}]")
                 
                 root_model.append(main_cell)
@@ -285,7 +285,7 @@ def main():
             root_model.append(desc_cell)
 
         # D. I/O Document (Group Handling)
-        if 'doc_ref' in step or 'doc_output' in step:
+        if step.get('doc_ref') or step.get('doc_output'):
             doc_name = step.get('doc_ref') or step.get('doc_output')
             doc_cells = get_icon_cells(lib_root, "document_with_tag")
             
